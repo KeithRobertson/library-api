@@ -13,6 +13,7 @@ import (
 
 func main() {
 	migrations.RunMigrations()
+
 	session, err := migrations.NewAppSession()
 	if err != nil {
 		log.Fatalf("cannot connect to keyspace: %v", err)
@@ -24,7 +25,11 @@ func main() {
 	bookHandler := handlers.NewBookHandler(bookService)
 
 	mux := http.NewServeMux()
-	mux.HandleFunc("/library/books", bookHandler.GetBooks)
+
+	api := http.NewServeMux()
+	api.HandleFunc("/library/books", bookHandler.GetBooks)
+
+	mux.Handle("/api/", http.StripPrefix("/api", api))
 
 	log.Println("Server starting on :8080")
 	log.Fatal(http.ListenAndServe(":8080", middleware.CORS(mux)))
