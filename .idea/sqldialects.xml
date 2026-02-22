@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/migrations/1_create_keyspace.down.cql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/migrations/2_create_books.down.cql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/migrations/2_create_books.up.cql" dialect="GenericSQL" />
+    <file url="PROJECT" dialect="CassandraQL" />
+  </component>
+</project>

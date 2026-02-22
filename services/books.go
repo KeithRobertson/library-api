@@ -1,21 +1,22 @@
 package services
 
-import "library-api/models"
+import (
+	"library-api/models"
+	"library-api/repositories"
+)
 
 type BookService interface {
 	GetAllBooks() ([]models.Book, error)
 }
 
-type bookService struct{}
+type bookService struct {
+	bookRepository *repositories.BookRepository
+}
 
-func NewBookService() BookService {
-	return &bookService{}
+func NewBookService(bookRepository *repositories.BookRepository) BookService {
+	return &bookService{bookRepository: bookRepository}
 }
 
 func (s *bookService) GetAllBooks() ([]models.Book, error) {
-	return []models.Book{
-		{Title: "The Go Programming Language", Author: "Alan Donovan"},
-		{Title: "Clean Code", Author: "Robert Martin"},
-		{Title: "The Pragmatic Programmer", Author: "Andy Hunt"},
-	}, nil
+	return s.bookRepository.GetAll()
 }

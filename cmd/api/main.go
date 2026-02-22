@@ -1,6 +1,8 @@
 package main
 
 import (
+	"library-api/migrations"
+	"library-api/repositories"
 	"log"
 	"net/http"
 
@@ -10,7 +12,15 @@ import (
 )
 
 func main() {
-	bookService := services.NewBookService()
+	migrations.RunMigrations()
+	session, err := migrations.NewAppSession()
+	if err != nil {
+		log.Fatalf("cannot connect to keyspace: %v", err)
+	}
+	defer session.Close()
+
+	bookRepository := repositories.NewBookRepository(session)
+	bookService := services.NewBookService(bookRepository)
 	bookHandler := handlers.NewBookHandler(bookService)
 
 	mux := http.NewServeMux()
