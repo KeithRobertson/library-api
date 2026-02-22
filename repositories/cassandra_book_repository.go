@@ -6,15 +6,15 @@ import (
 	"github.com/gocql/gocql"
 )
 
-type BookRepository struct {
+type CassandraBookRepository struct {
 	session *gocql.Session
 }
 
-func NewBookRepository(session *gocql.Session) *BookRepository {
-	return &BookRepository{session: session}
+func NewCassandraBookRepository(session *gocql.Session) *CassandraBookRepository {
+	return &CassandraBookRepository{session: session}
 }
 
-func (r *BookRepository) GetAll() ([]models.Book, error) {
+func (r *CassandraBookRepository) GetAll() ([]models.Book, error) {
 	iter := r.session.Query(`SELECT id, title, author FROM books`).Iter()
 
 	var (

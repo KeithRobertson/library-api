@@ -10,10 +10,10 @@ type BookService interface {
 }
 
 type bookService struct {
-	bookRepository *repositories.BookRepository
+	bookRepository repositories.BookRepository
 }
 
-func NewBookService(bookRepository *repositories.BookRepository) BookService {
+func NewBookService(bookRepository repositories.BookRepository) BookService {
 	return &bookService{bookRepository: bookRepository}
 }
 

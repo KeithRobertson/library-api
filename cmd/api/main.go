@@ -20,7 +20,7 @@ func main() {
 	}
 	defer session.Close()
 
-	bookRepository := repositories.NewBookRepository(session)
+	bookRepository := repositories.NewCassandraBookRepository(session)
 	bookService := services.NewBookService(bookRepository)
 	bookHandler := handlers.NewBookHandler(bookService)
 
